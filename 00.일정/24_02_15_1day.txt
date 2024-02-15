@@ -4,9 +4,10 @@
     - 수강내용 velog 정리
 
 2. typescript 설치?
-->>> 그냥쓰면 됨..
+내일 설치환경 점검하자
 
 3. reactnative 기본문법 찾아서 정리
+
 
 4. vue.js 프로젝트 정리
 

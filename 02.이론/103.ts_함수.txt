@@ -1,0 +1,134 @@
+타입스크립트의 function
+기본 타입 작성법
+기본 사용법
+
+function 함수명(parameter:type):return type{
+	return value;
+}
+몇개의 파라미터여도 넣을 수 있음~ 당연한 이야기인가 :D
+
+매개변수의 옵셔널처리
+📃옵셔널 기본
+옵셔널 처리할 파라미터값에 ?를 붙이면 됨.
+
+// hello함수
+function hello(name?:string):string{
+	return `Hello, ${name || "world"}`;
+}
+// 인스턴스 생성
+const result = hello();
+📃옵셔널 주의사항
+1. 옵셔널이더라도 꼭 뒤의 형식은 일치해야함
+
+// hello함수
+function hello(name?:string):string{
+	return `Hello, ${name || "world"}`;
+}
+
+// 인스턴스 생성
+const result = hello();
+const result2 = hello('juhyun');
+// const result3 = hello(11); //number값으로 인한 오류
+undefined 또는 string으로 넣어야 문제없이 실행 됨
+
+2. 옵셔널 매개변수가 필수매개변수보다 앞에 위치하면 안 됨
+
+// hello함수
+function hello(nickName:string, name?:string):string{
+	if(name !== undefined){
+    	return `Hello, ${name}.`;
+    }else{
+    	return `Hello, ${nickName}.`;
+    }
+}
+
+// 인스턴스 생성
+const result2 = hello('itjuh','juhyun');
+옵셔널 매개변수를 앞에 두고싶다면
+type을 string|undefined로 수정해야 한다.(굳이 이렇게 할 일은 없을 듯)
+
+나머지 매개변수의 type작성법
+숫자를 받아서 모두 더하는 함수를 만들자.
+
+function add(...nums:number[]){
+	return reduce((result,num)=>result+num,0);
+}
+add(1,2,3);
+add(1,2,3,4,5,6);
+...에 의해서 전달 된 모든 인자들이 배열형이 되므로 타입은 배열형으로 선언한다.
+
+참고) reduce()함수
+각 요소를 순회하여 callback함수의 실행값을 누적하여 하나의 값을 반환하는 함수
+
+arr.reduce(callback(누적반환값,ele,idx,arr){},초기값or배열의0번쨰값)
+
+reduce의 파라미터는 콜백함수와 초기값으로 구성되어 있다.
+콜백함수의 파라미터는 순서대로 누적값, 현재요소, 순번, 전체배열로 구성되어있다.
+
+nums.reduce((result,num)=>result+num,0)
+위의 함수 기준으로 결과값과 현재요소를 더해서 반환하는 함수라는 것을 알 수 있다.
+
+this 키워드
+interface User{
+	name : string;
+}
+
+const Juhyun: User = {name:'Juhyun'}
+
+function showName(this:User, age:number, gender:'m'|'f'):void{
+	console.log(this.name, age, gender);
+}
+
+const showJuhyun = showName.bind(Juhyun);
+showJuhyun(30,'f');
+this키워드의 타입을 선언해주지 않으면 오류가 발생하므로
+this의 타입은 가장 앞에 선언해주면 된다.
+
+참고) this의 값을 바꾸는 방법
+1. .apply(this,[매개변수])
+2. .call(this,매개변수1,매개변수2,..)
+3. 영구적으로 this의 값을 바꿔줌 .bind(바꿀값)
+
+함수 오버로드 사용
+같은 함수에서 매개변수의 타입이나 반환형이 다른 경우에 오버로드를 사용해야 오류를 없앨 수 있다.
+
+예시로 간단한 검증함수를 작성해본다.
+
+interface User{
+	name: string;
+    age: number;
+}
+
+function join(name:string, age:string|number):User|string{
+	if(typeof age === 'number'){
+    	return{
+        	name,
+            age,
+		};
+    }else {
+    	return '나이는 숫자로 입력해주세요.';
+    }
+}
+const sam: User = join('Sam',30);
+여기에서 동일한 타입이지만 매개변수에 따라서 다른 동작을 해야한다면
+오버로드를 해주어야 오류가 나지 않는다.
+
+interface User{
+	name: string;
+    age: number;
+}
+
+function join(name:string, age:number):User;
+function join(name:string, age:string):string;
+function join(name:string, age:string|number):User|string{
+	if(typeof age === 'number'){
+    	return{
+        	name,
+            age,
+		};
+    }else {
+    	return '나이는 숫자로 입력해주세요.';
+    }
+}
+const sam: User = join('Sam',30);
+자주 사용되니 확실하게 알아두자!
