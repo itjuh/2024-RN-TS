@@ -1,0 +1,64 @@
+기본타입
+1. 문자 :string
+let car:string = 'bmw';
+let car = 'bmw'; 여도 타입추론이 가능함
+
+2. 불린 :boolean
+true, false
+
+3. 숫자 :number
+4. 배열 :Array<타입> 또는 타입[]
+<>는 제네릭이라 하는데 여기 안에 배열의 타입을 넣어주어도 됨
+
+5. 튜플(Tuple) :[string, number];
+인덱스별로 타입이 다를 때 사용
+
+6. 반환값이 없는 경우 :void
+함수에서 반환값이 없는 경우
+
+7. 에러반환 :never
+항상 에러를 반환하거나 영원히 끝나지 않는 타입으로 선언할 수 있음
+
+function showError():never{
+	throw new Error();
+}
+
+function infLoop():never{
+	while(true){
+    }
+}
+8. 열거형 :enum
+비슷한 값들끼리 묶어줌
+관련 상수들의 집합이라고 한다.
+
+enum Os{
+	Window;
+    Ios;
+    Android;
+}
+값을 할당하지 않으면 0부터 1씩 증가하면서 값이 할당 됨
+enum에 값을 할당하면 양방향 맵핑이 됨
+console.log(Os['window'])를 하면 0이 출력 됨
+console.log(Os[0])를 하면 window가 출력 됨
+
+let myOs:Os;
+myOs = Os.window;
+myOs는 Os의 값만 사용할 수 있음
+
+9. null, undefined
+undefined는 변수를 선언하고 값을 할당하지 않은 상태이다. (자료형이 없음)
+null은 변수를 선언하고 빈값을 할당한 상태이다. (object 타입)
+
+둘은 동등연산자로는 같은 값이다.
+
+10. 객체형 :object
+let user:object;
+
+user = {
+	name : 'aaa',
+    age : 20,
+}
+console.log(user.name)은 에러가 발생함
+property를 정해서 객체를 표현하고자 한다면 interface를 사용해야한다.
+
+참고) typescript 코딩앙마 강좌

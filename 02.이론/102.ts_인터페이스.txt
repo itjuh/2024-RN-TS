@@ -1,0 +1,203 @@
+📌interface란
+클래스, 변수, 함수의 타입을 감지할 수 있는 것
+직접 인스턴스 생성할 수 없다!
+
+1. interface의 사용 - 객체 정의
+let user:object;
+
+user = {
+	name : 'aaa',
+    age : 20,
+}
+console.log(user.name)은 에러가 발생함
+
+해서 다음과 같이 수정해야한다.
+
+interface User{
+	name:string;
+    age:number;
+}
+let user:User = {
+	name:'aaa',
+    age:20,
+}
+console.log(user.age)은 20이 출력 됨
+
+필수가 아닌 값 처리 ?
+타입스트립트는 옵셔널(optional)을 지원한다.
+이는 값을 필수로 받지 않아도 되는 변수를 지정하는 것이다.
+
+interface User{
+	name:string;
+    age:number;
+    gender? :string;
+}
+let user:User = {
+	name:'aaa',
+    age:20,
+}
+해당 변수값에 ?를 붙이면 optional한 값으로 필수가 아니게 된다.
+(약간 다트언어의 nullsafety인가 싶었다. 비슷한 모양새)
+
+읽기전용 처리 readonly
+interface User{
+	name:string;
+    age:number;
+    readonly birth: number;
+}
+let user:User = {
+	name:'aaa',
+    age:20,
+    birth: 2000,
+}
+해당변수값 앞에 readonly 키워드를 붙이면 최초할당만 가능하고 변경이 불가능하다.
+(약간 다트언어의 final같은 느낌..)
+
+다수의 값 받기
+예를 들어 User 인터페이스에 성적을 입력받도록 프로그래밍 해보자.
+일단, 인터페이스에 학기마다 성적을 받아야한다. 그러나 값이 아직 존재하지 않을 수 있으니
+필수값이 아닌 옵셔널처리가 필요하다.
+
+interface User{
+	name:string;
+    age:number;
+    1? :string;
+    2? :string;
+    3? :string;
+    4? :string;
+}
+let user:User = {
+	name:'aaa',
+    age:20,
+    1:'A',
+}
+이렇게 코딩해도 되지만 좀 더 간결하게 코드를 작성해보고자 한다.
+
+interface User{
+	name:string;
+    age:number;
+    [grade:number]:string;
+}
+let user:User = {
+	name:'aaa',
+    age:20,
+    1:'A',
+    2:'B',
+}
+숫자를 키로 받고 문자를 값으로 받는 프로퍼티를 여러개 만들 수 있다.
+
+여기서 성적은 정해진 값이므로 리터럴 타입으로 선언하여 코드를 명확하게 만든다.
+
+리터럴타입(Literal Types)
+TypeScript에 문자열이나 숫자에 정확한 값을 지정하여 더 엄격한 타입을 지정하는 것
+보통 type 뒤에 대문자로 시작하는 변수명에 할당한다.
+
+type Score = 'A' | 'B' | 'C' | 'F';
+
+interface User{
+	name:string;
+    age:number;
+    [grade:number]:Score;
+}
+let user:User = {
+	name:'aaa',
+    age:20,
+    1:'A',
+    2:'B',
+}
+2. interface의 사용 - 함수정의
+인터페이스는 다음과 같이 작성한다.
+
+interface 함수명 {
+	(parameter):return;
+}
+실제 덧셈을 하는 함수를 작성해본다.
+
+
+interface Add{
+	(num1:number, num2:number): number;
+}
+
+const add:Add = function(x,y){
+	return x+y;
+}
+
+add(10,20);
+나이를 받아서 성인인지 아닌지 리턴해주는 함수를 작성해본다.
+
+interface IsAdult{
+	(age:number):boolean;
+}
+
+const isAdult:IsAdult = (x)=>{
+	return x>19;
+}
+
+isAdult(20); //true
+3. interface의 사용 - 클래스 정의
+implements는 클래스가 인터페이스의 모든 속성을 오버라이드 했는지 확인하는 키워드이다.
+다중상속이 가능하다.
+
+// implements
+
+interface Car{
+	color: string;
+    wheels: number;
+    start():void;
+}
+
+// class 정의하기
+class Bmw implement Car{
+	color;
+	wheels = 4;
+    constructor(c:string){
+    	this.color = c;
+    }
+    start(){
+    	console.log('gogo!');
+    }
+}
+
+// 인스턴스 생성하기
+const b = new Bmw('green');
+console.log(b);
+b.start(); //gogo!
+4. interface의 확장
+위의 코드를 가져와서 인터페이스를 확장하자.
+
+// implements
+
+interface Car{
+	color: string;
+    wheels: number;
+    start():void;
+}
+// interface 확장
+interface Benz extends Car{
+	door: number,
+    stop(): void;
+}
+// class 정의하기
+class benz:Benz = {
+	door: 5,
+    stop(){
+    	console.log('stop');
+    },
+    color: 'white',
+    wheels: 4,
+    start(){
+    	console.log('gogo!');
+    }
+}
+확장은 여러개를 할 수 있음
+interface Car{
+	color: string;
+    wheels: number;
+    start():void;
+}
+interface toy{
+	name: string;
+}
+interface ToyCar extends Car, Toy{
+	price: number;
+}
