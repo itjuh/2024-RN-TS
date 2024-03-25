@@ -1,0 +1,19 @@
+[ TouchableOpacity ]
+
+[ Text ]
+
+[ StyleSheet ]
+
+[ SafeAreaView ]
+
+[ Dimensions ]
+
+[ Image ]
+
+[ View ]
+
+[ Platform ]
+
+[ StatusBar ]
+
+[ Alert ]

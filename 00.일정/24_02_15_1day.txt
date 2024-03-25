@@ -1,7 +1,7 @@
 [ 오늘의 일정 ]
 
 1. typescript 강의 진행
-    - 수강내용 velog 정리
+    - 수강내용 velog 정리(1,2,3강)
 
 2. typescript 설치?
 내일 설치환경 점검하자
