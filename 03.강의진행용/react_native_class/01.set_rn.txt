@@ -67,10 +67,12 @@ justifyContent : 진행방향쪽 중앙정렬 즉, column 으로 중앙정렬된
 3. TouchableOpacity - 불투명해짐
 4. Pressable - 많이사용됨
 5. TouchableNativeFeedBack
-6. TouchableWithOutFeedBack
+6. TouchableWithOutFeedBack - 안드로이드 아이폰 비슷해짐
 
 
 [ 네비게이션 이동 ]
+// Stack 변수 생성 createNativeStackNavigator<RootStackParamList>();
+// createNativeStackNavigator제네릭타입 RootStackParamList
 const Stack = createNativeStackNavigator<RootStackParamList>();
 <NavigationContainer>
   <Stack.Navigator initialRouteName="Home">
@@ -87,3 +89,22 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 컴포넌트(여기서는 Stack이라는 이름의).Screen 안에 넣은 컴포넌트 속성은
 conponent={컴포넌트명}으로 전달 한 컴포넌트로 Navigation과 Route라는 props를 전달한다.
+
+.push()하면 페이지가 층층이 쌓여서 history로 남음(전페이지 state가 남아있음)
+.goBack
+Stack / Tab / Drower Navigator는 flex: 1이 적용되어 있음
+
+[ 모달창 띄우기 ]
+1. 같은페이지에서 화면 띄울 떄 사용
+-> 기본적으로 화면은 겹치지 않음 컴포넌트는 자연스럽게 흘러가도록 함
+화면 위에 컴포넌트를 위치할거면 상하로 덮어서 아래의 컴포넌트가 덮어씌우도록
+-> <View style={{position:'absolute', ...StyleSheet.absoluteFillObject}}><Text>Hello</Text></View>
+-> absoluteFillObject t0 b0 r0 l0
+
+// 그림자 ios
+shadowColor
+shadowOpacity
+shadowRadius
+shadowOffset: {width: 5, height: 5},
+// 그림자 android
+elevation: 15,
