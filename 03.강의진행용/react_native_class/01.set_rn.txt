@@ -1,0 +1,89 @@
+1. react-native 설치(이미 진행)
+2. create-app
+- 명령어로 진행하기
+npx react-native init FoodDeliveryApp
+
+3. 폴더구조 생성하기
+4. 페이지 이동은
+- react-router-native
+- react-navigation
+둘 중 하나를 쓰면 되는데 후자를 사용함
+
+npm i @react-navigation/native @react-navigation/native-stack
+
+설치 후에 번들파일 수정
+Kotlin
+
+class MainActivity: ReactActivity() {
+  // ...
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(null)
+  }
+  // ...
+}
+
+상단 import 
+import android.os.Bundle;
+
+오류 
+1. Task :react-native-safe-area-context:processDebugManifest
+package="com.th3rdwave.safeareacontext" found in source AndroidManifest.xml: F:\GreenCom\GitHub\2024-RN-TS\05.RN\FoodDeliveryApp\node_modules\react-native-safe-area-context\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.th3rdwave.safeareacontext" from the source AndroidManifest.xml: F:\GreenCom\GitHub\2024-RN-TS\05.RN\FoodDeliveryApp\node_modules\react-native-safe-area-context\android\src\main\AndroidManifest.xml.
+무시되는 패키지 지우세요~ >지움
+
+2. Task :react-native-safe-area-context:processDebugManifest
+package="com.th3rdwave.safeareacontext" found in source AndroidManifest.xml: F:\GreenCom\GitHub\2024-RN-TS\05.RN\FoodDeliveryApp\node_modules\react-native-safe-area-context\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.th3rdwave.safeareacontext" from the source AndroidManifest.xml: F:\GreenCom\GitHub\2024-RN-TS\05.RN\FoodDeliveryApp\node_modules\react-native-safe-area-context\android\src\main\AndroidManifest.xml.
+무시되는 패키지 지우세요~ >지움
+
+> Task :react-native-screens:compileDebugKotlin FAILED
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+58 actionable tasks: 58 executed
+1. 호환 안되요~ > 버전보러가자 (gradle-wrapper.properties)
+2. distributionUrl=https\://services.gradle.org/distributions/gradle-8.3-all.zip ->>8.3버전
+3. https://reactnavigation.org/docs/7.x/getting-started ->> 해결됨!! 설정안해서 kt코드 attr 못읽어들이고 있었음 ^^..
+
+
+타입스크립트 간단설명
+매개변수, 리턴값, 변수에 타입을 붙여준다!
+매개변수 : 타입
+리턴값 : 타입
+변수 : 타입
+
+글자는 무조건 Text로 감싸야한다.
+justifyContent : 진행방향쪽 중앙정렬 즉, column 으로 중앙정렬된다.
+부모 컴포넌트에 flexDirection: 'row'주면 가로정렬
+
+버튼종류 - onPress로 useCallBack함수 등록 가능함
+1. Button
+2. TouchableHighlight - 검어짐 underlayColor="orange" 배경색이 orange
+3. TouchableOpacity - 불투명해짐
+4. Pressable - 많이사용됨
+5. TouchableNativeFeedBack
+6. TouchableWithOutFeedBack
+
+
+[ 네비게이션 이동 ]
+const Stack = createNativeStackNavigator<RootStackParamList>();
+<NavigationContainer>
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{title: '홈화면'}}
+    />
+    <Stack.Screen name="Details">
+      {(props : {navigation: any, route: RouteProp<ParamListBase, RouteName})=><DetailsScreen {...props} /> }
+    </Stack.Screen>
+  </Stack.Navigator>
+</NavigationContainer>
+
+컴포넌트(여기서는 Stack이라는 이름의).Screen 안에 넣은 컴포넌트 속성은
+conponent={컴포넌트명}으로 전달 한 컴포넌트로 Navigation과 Route라는 props를 전달한다.
