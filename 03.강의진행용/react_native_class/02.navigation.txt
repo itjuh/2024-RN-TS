@@ -1,0 +1,38 @@
+1. 페이지 구성
+// 화면에 나타나는 조건이 달라서 두개의 타입으로 나눔
+// 로그인 했을 때
+export type LoggedInParamList = {
+  Orders: undefined;
+  Settings: undefined;
+  Delivery: undefined;
+  Complete: {orderId: string}; // 주문의 아이디를 넣어서 완료값을 전달함
+};
+// 로그인 안했을 때
+esport type RootStackParamList = {
+    SignIn: undefined;
+    SignUp: undefined;
+}
+
+스크린 묶기
+<Tap.Group></Tap.Group>
+
+[ 로그인페이지 만들기 ]
+
+스타일시트 중복적용하기
+1. 배열 : [styles.loginButton, sytles.loginButtonActive]
+이렇게 배열로 쓰면 배열의 뒷번호를 덮어ㅡㅆ면서 다중의 스타일시트를 적용할 수 있으
+2. StyleSheet.compose(sytles.loginButton, styles.loginButtonActive)
+compose()함수를 활용하면 여러개의 스타일시트를 적용 가능
+
+const styles = StyleSheet.create({
+  loginButton:{
+    borderRadius: 10,
+    backgroundColor: 'gray',
+  }, 
+  loginButtonActive:{
+    backgroundColor: 'blue',
+  }
+})
+
+스타일시트에서 가장 얇은 선
+StyleSheet.hairlineWidth
