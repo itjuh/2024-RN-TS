@@ -810,7 +810,7 @@ Android 다운받은 후 android/app/src/main 아래에 넣기
 앱 하단 메뉴 아이콘
 npm i react-native-vector-icons
 npm i -D @types/react-native-vector-icons
-목록
+목록 https://oblador.github.io/react-native-vector-icons/
 
 android/app/src/main/assets/fonts에 node_modules/react-native-vector-icons/Fonts 폴더 복사
 [ios]Xcode에서 New Group으로 메뉴를 생성하고 Fonts 그룹에 node_modules/react-native-vector-icons/Fonts 폰트들을 추가

@@ -1,6 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {
   Alert,
+  NativeEventEmitter,
   Platform,
   Pressable,
   StyleSheet,
